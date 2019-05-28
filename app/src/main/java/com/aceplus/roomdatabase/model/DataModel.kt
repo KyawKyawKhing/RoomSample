@@ -17,13 +17,31 @@ class DataModel(private val context: Context) {
         }
     }
 
+    //CRUD
+
+    //C - Create Data
+    fun addContactData(contact: Contact) {
+        val myDatabase = MyDatabase.getInstance(context)
+        myDatabase.contactDao().insertData(contact)
+    }
+
+    //R - Read Data
     fun getContactList(): List<Contact> {
         val myDatabase = MyDatabase.getInstance(context)
         return myDatabase.contactDao().allData as MutableList<Contact>
     }
 
-    fun addContactData(contact: Contact) {
+    //U - Update Data
+    fun updateContactData(contact: Contact) {
         val myDatabase = MyDatabase.getInstance(context)
-        myDatabase.contactDao().insertData(contact)
+        return myDatabase.contactDao().updateData(contact)
     }
+
+    //D - Delete Data
+    fun deleteContactData(contact: Contact) {
+        val myDatabase = MyDatabase.getInstance(context)
+//        myDatabase.contactDao().deleteData(contactId = contact.id!!)
+        myDatabase.contactDao().deleteData(contact = contact)
+    }
+
 }

@@ -1,9 +1,8 @@
 package com.aceplus.roomdatabase.database
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.db.SimpleSQLiteQuery
+import android.arch.persistence.db.SupportSQLiteQuery
+import android.arch.persistence.room.*
 
 
 @Dao
@@ -20,4 +19,27 @@ interface ContactDao {
 
     @Query("Delete from contact")
     fun deleteAll()
+
+    @Delete
+    fun deleteData(contact: Contact)
+
+    @Update
+    fun updateData(contact: Contact)
+
+
+    //you can use Query to delete data
+    @Query("Delete from contact where id=:contactId")
+    fun deleteData(contactId: Int)
+
+
+    //you can use RawQuery too
+    @RawQuery
+    fun deleteData(rawSQLiteQuery: SupportSQLiteQuery):Boolean
+
+    @RawQuery
+    fun updateData(rawSQLiteQuery: SupportSQLiteQuery):Boolean
+
+    @RawQuery
+    fun allData(rawSQLiteQuery: SupportSQLiteQuery): List<Contact>
+
 }
